@@ -522,25 +522,56 @@ Each extractor returns a formatted bulleted list ready for direct display in the
 
 ### Dashboard
 
-![Dashboard](assets/TP4.png)
+![Dashboard](assets/Homepage.png)
 
 ---
 
-### Action Items
+### Youtube URL / File Uploaded
 
-![Action Items](assets/TP1.png)
+![Dashboard](assets/VideoGiven.png)
+
+---
+
+### Analysing the Video 
+
+![Dashboard](assets/AnalysisRunning.png)
 
 ---
 
-### Summary Output
+### Summary Output 
 
-![Summary](assets/TP2.png)
+![Summary](assets/Summury.png)
 
 ---
+
+### Key Action Items Discussed
+
+![Action Items](assets/ActionItems.png)
+
+---
+
+### Key Decision
+
+![Summary](assets/KeyDesicions.png)
+
+---
+
+### Open Quentions
+
+![Summary](assets/OpenQuestions.png)
+
+---
+
+### Video Transcript Output
+
+![Summary](assets/Transcript.png)
+
+---
+
 
 ### RAG Chat Interface
 
-![RAG Chat](assets/TP3.png)
+![RAG Chat](assets/RAG.png)
 
 ---
 
