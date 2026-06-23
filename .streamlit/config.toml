@@ -1,0 +1,12 @@
+[server]
+# Raise the upload limit from the default 200 MB to 500 MB.
+# This matches MAX_FILE_MB in audio_processor.py.
+maxUploadSize = 500
+
+[runner]
+# Fast restart on code change (dev only — harmless in production)
+fastReruns = true
+
+[browser]
+# Prevents the "You may be connected to a different server" banner
+gatherUsageStats = false

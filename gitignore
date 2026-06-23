@@ -1,0 +1,36 @@
+# Virtual Environment
+
+.venv/
+venv/
+
+# Environment Variables
+
+.env
+.streamlit/secrets.toml
+
+# Python
+
+**pycache**/
+*.pyc
+*.pyo
+*.pyd
+
+# ChromaDB / Vector Stores
+
+chromadb/
+vectorstore/
+
+# Temporary Files
+
+temp/
+cache/
+
+# IDE
+
+.vscode/
+.idea/
+
+# OS Files
+
+.DS_Store
+Thumbs.db

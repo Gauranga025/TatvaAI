@@ -1,0 +1,51 @@
+# ── TatvaAI — requirements.txt ───────────────────────────────────────────────
+
+# Python 3.10+
+
+# ── Audio / Video acquisition ────────────────────────────────────────────────
+
+yt-dlp>=2024.8.1
+pydub>=0.25.1
+ffmpeg-python>=0.2.0
+
+# ── Speech-to-Text ───────────────────────────────────────────────────────────
+
+openai-whisper>=20231117
+torch>=2.2.0
+torchaudio>=2.2.0
+
+# ── Translation ──────────────────────────────────────────────────────────────
+
+requests>=2.32.0
+deep-translator>=1.11.4
+
+# ── LangChain Ecosystem (Pinned for Compatibility) ──────────────────────────
+
+langchain==0.1.20
+langchain-core==0.1.53
+langchain-community==0.0.38
+langchain-text-splitters==0.0.2
+langchain-mistralai==0.0.5
+
+
+# ── Mistral AI ───────────────────────────────────────────────────────────────
+
+mistralai==0.1.8
+
+# ── RAG Pipeline ─────────────────────────────────────────────────────────────
+
+chromadb>=0.5.0
+sentence-transformers>=3.0.0
+huggingface-hub>=0.23.0
+tiktoken>=0.7.0
+
+# ── Streamlit ────────────────────────────────────────────────────────────────
+
+streamlit>=1.35.0
+watchdog>=4.0.0
+
+# ── Utilities ────────────────────────────────────────────────────────────────
+
+python-dotenv>=1.0.0
+numpy==1.26.4
+tqdm>=4.66.0
