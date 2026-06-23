@@ -250,63 +250,42 @@ if not ffmpeg_ok:
 # rather than crashing deep inside summarizer / extractor / rag_engine.
 
 def _resolve_mistral_key_for_ui() -> tuple[bool, str]:
-    """
-    Try MISTRAL_API_KEY from st.secrets first, then os.environ.
-    Returns (is_ok, diagnostic_message).
-    """
-    _PLACEHOLDERS = ("your_mistral_api_key_here", "your-key-here", "replace_me", "<your")
+    _PLACEHOLDERS = (
+        "your_mistral_api_key_here",
+        "your-key-here",
+        "replace_me",
+        "<your",
+    )
 
-    # Priority 1 — Streamlit Cloud secrets
+    key = None
+
+    # Try Streamlit Secrets safely
     try:
         key = st.secrets.get("MISTRAL_API_KEY", "")
-        if key and key.strip() and not any(key.strip().lower().startswith(p) for p in _PLACEHOLDERS):
-            if len(key.strip()) >= 20:
-                print("Mistral Key Found: True (source: st.secrets)")   # diagnostic log
-                logger.info("MISTRAL_API_KEY resolved from st.secrets")
-                return True, "st.secrets"
     except Exception:
-        pass  # secrets not available outside Streamlit Cloud
+        pass
 
-    # Priority 2 — Environment variable (populated by load_dotenv)
-    key = st.secrets.get("MISTRAL_API_KEY") or os.getenv("MISTRAL_API_KEY")
-    print(f"Mistral Key Found: {bool(key and key.strip())}")             # diagnostic log
-    logger.info("MISTRAL_API_KEY present in env: %s", bool(key and key.strip()))
+    # Fallback to environment variable
+    if not key:
+        key = os.getenv("MISTRAL_API_KEY", "")
+
+    print(f"Mistral Key Found: {bool(key and key.strip())}")
+    logger.info("MISTRAL_API_KEY present: %s", bool(key and key.strip()))
 
     if not key or not key.strip():
         return False, (
             "MISTRAL_API_KEY is not set.\n\n"
             "• Local development → add MISTRAL_API_KEY=<your-key> to your .env file\n"
-            "• Streamlit Cloud   → add MISTRAL_API_KEY under App Settings → Secrets\n\n"
-            "Get your key at https://console.mistral.ai/api-keys/"
+            "• Streamlit Cloud → add MISTRAL_API_KEY under App Settings → Secrets"
         )
+
     if any(key.strip().lower().startswith(p) for p in _PLACEHOLDERS):
-        return False, (
-            "MISTRAL_API_KEY is still a placeholder value.\n"
-            "Replace it with your real key from https://console.mistral.ai/api-keys/"
-        )
+        return False, "MISTRAL_API_KEY is still a placeholder value."
+
     if len(key.strip()) < 20:
-        return False, (
-            f"MISTRAL_API_KEY looks too short (length={len(key.strip())}).\n"
-            "Double-check the value in your .env or Streamlit Secrets."
-        )
-    return True, "os.environ / .env"
+        return False, "MISTRAL_API_KEY looks too short."
 
-
-_mistral_ok, _mistral_info = _resolve_mistral_key_for_ui()
-
-if not _mistral_ok:
-    st.markdown(f"""
-    <div class="ta-error">
-        <div class="ta-error-title">🔑 Mistral API key not configured</div>
-        <div class="ta-error-body">{_mistral_info}</div>
-    </div>
-    """, unsafe_allow_html=True)
-    st.info(
-        "Once you've added the key, click ☰ → Rerun, or redeploy on Streamlit Cloud.",
-        icon="ℹ️",
-    )
-    st.stop()
-
+    return True, "configured"
 
 # ─── Session State Init ──────────────────────────────────────────────────────────
 _DEFAULTS = {
