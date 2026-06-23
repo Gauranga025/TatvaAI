@@ -268,7 +268,7 @@ def _resolve_mistral_key_for_ui() -> tuple[bool, str]:
         pass  # secrets not available outside Streamlit Cloud
 
     # Priority 2 — Environment variable (populated by load_dotenv)
-    key = os.getenv("MISTRAL_API_KEY", "")
+    key = st.secrets.get("MISTRAL_API_KEY") or os.getenv("MISTRAL_API_KEY")
     print(f"Mistral Key Found: {bool(key and key.strip())}")             # diagnostic log
     logger.info("MISTRAL_API_KEY present in env: %s", bool(key and key.strip()))
 
